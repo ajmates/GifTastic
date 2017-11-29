@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practice</title>
+
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+<script type="text/javascript">
+	window.onload = (function() {
+	$(".search").on("click", function(){
+		console.log("clicked");
+		console.log($(this).data("name"));
+
+	var searchTerm= $(this).data("name");
+	var queryURL= "https://api.giphy.com/v1/gifs/search?q="+searchTerm+"&api_key=kgQvBjFjv1lW0NgEtYkibzfqNr16dI74&limit=10";
+
+	console.log(searchTerm);
+	console.log(queryURL);
+
+	$.ajax({
+		url: queryURL, 
+		method: "GET"
+	})
+	.done(function(response){
+		//for loop to go through array 
+	var image = $("<img>");
+	image.attr("src", response.data[0].images.original.url);
+	$(".search").append(image);
+		console.log(response.data[0].images.original.url); 
+	})
+		});
+	}); 
+
+</script>
+
+</head>
+
+<body>
+
+<button class="search" data-name="animal">click here</button> 
+<button class="search" data-name="dog">click here</button> 
+
+</body>
+</html>
+
